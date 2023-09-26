@@ -16,12 +16,15 @@ import static java.time.Instant.now;
 public class Main {
     public static void main(String[] args) throws IOException {
         var main = new Main();
-        // main.runBST();
+         main.runBST();
         // main.runCountingSort();
 
     }
 
     void runBST() throws IOException {
+        Files.deleteIfExists(Paths.get("put.csv"));
+        Files.deleteIfExists(Paths.get("get.csv"));
+        Files.deleteIfExists(Paths.get("delete.csv"));
         var putFile = Files.createFile(Paths.get("put.csv"));
         var getFile = Files.createFile(Paths.get("get.csv"));
         var deleteFile = Files.createFile(Paths.get("delete.csv"));
@@ -45,10 +48,9 @@ public class Main {
                 rbt.get(n);
             writeString(getFile, "" + k + "," + (now().toEpochMilli() - startGet) + lineSeparator(), APPEND);
 
-
             var startDelete = now().toEpochMilli();
             for (var n : in)
-                rbt.get(n);
+                rbt.delete(n);
             writeString(deleteFile, "" + k + "," + (now().toEpochMilli() - startDelete) + lineSeparator(), APPEND);
 
             k += 10_000;

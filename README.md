@@ -22,3 +22,17 @@ We can see, that complexity is O(log(n))
 - Counting sort uses partial hashing to count the occurrence of the data object in O(1).
 - The counting sort can be extended to work for negative inputs also.
 - Counting sort is a stable algorithm. But it can be made stable with some code changes.
+
+
+# Profiler result
+
+1. CPU flame graph
+
+![cpu flame graph.png](cpu%20flame%20graph.png)
+
+2. Memory flame graph
+
+![memory flame graph.png](memory%20flame%20graph.png)
+
+As we can see, cpu and memory consumption is logarithmic for put and delete operation. Get operation isn't displayed here due to insignificance comparing to put and delete.
+

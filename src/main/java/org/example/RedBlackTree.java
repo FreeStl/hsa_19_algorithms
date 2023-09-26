@@ -99,7 +99,7 @@ public class RedBlackTree<K extends Comparable<K>, V> {
         // assert isRed(h) && !isRed(h.left) && !isRed(h.left.left);
 
         flipColors(root);
-        if (isRed(root.right.left)) {
+        if (root.right != null && isRed(root.right.left)) {
             root.right = rotateRight(root.right);
             root = rotateLeft(root);
             flipColors(root);
@@ -136,6 +136,9 @@ public class RedBlackTree<K extends Comparable<K>, V> {
 
     public void delete(K key) {
 
+        if (root == null)
+            return;
+
         // if both children of root are black, set root to red
         if (!isRed(root.left) && !isRed(root.right))
             root.isRed = true;
@@ -148,9 +151,12 @@ public class RedBlackTree<K extends Comparable<K>, V> {
     private Node<K, V> delete(Node<K, V> root, K key) {
         // assert get(h, key) != null;
 
+        if (root == null)
+            return null;
+
         if (key.compareTo(root.key) < 0)  {
             //convert 2 node to a 3 node
-            if (!isRed(root.left) && !isRed(root.left.left))
+            if (!isRed(root.left) && root.left != null && !isRed(root.left.left))
                 root = moveRedLeft(root);
             root.left = delete(root.left, key);
         }
@@ -159,7 +165,7 @@ public class RedBlackTree<K extends Comparable<K>, V> {
                 root = rotateRight(root);
             if (key.compareTo(root.key) == 0 && (root.right == null))
                 return null;
-            if (!isRed(root.right) && !isRed(root.right.left))
+            if (!isRed(root.right) && root.right != null && !isRed(root.right.left))
                 root = moveRedRight(root);
             if (key.compareTo(root.key) == 0) {
                 Node<K, V> x = min(root.right);
